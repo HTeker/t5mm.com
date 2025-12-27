@@ -49,9 +49,7 @@ export default function Home() {
         <p>
           <b>Newsletters:</b>
         </p>
-        <div
-          style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}
-        >
+        <div style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}>
           {Object.values(NewsletterEnum).map((newsletter, index) => (
             <label
               key={index}
@@ -62,8 +60,7 @@ export default function Home() {
                 value={newsletter}
                 {...register("newsletters", {
                   validate: (value) =>
-                    value.length > 0 ||
-                    "Please select at least one newsletter",
+                    value.length > 0 || "Please select at least one newsletter",
                 })}
               />
               {t(newsletter)}
@@ -82,16 +79,37 @@ export default function Home() {
           )}
         </div>
         <br />
-        <div style={{ display: "flex", gap: ".5rem" }}>
-          <input
-            id="email"
-            type="email"
-            placeholder="you@company.com"
-            style={{ flex: 1, maxWidth: "16rem" }}
-            autoFocus
-            {...register("email")}
-          />
-          <button type="submit" data-loading={isSubmitting} disabled={isSubmitting}>Subscribe</button>
+        <div style={{ display: "flex", gap: ".5rem", alignItems: "flex-start" }}>
+          <div>
+            <input
+              id="email"
+              type="email"
+              placeholder="you@company.com"
+              style={{ flex: 1, maxWidth: "16rem" }}
+              autoFocus
+              {...register("email", {
+                required: "Email is required",
+              })}
+            />
+            {errors.email && (
+              <p
+                style={{
+                  color: "#ff4444",
+                  fontSize: ".9rem",
+                  margin: ".25rem 0 0 0",
+                }}
+              >
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+          <button
+            type="submit"
+            data-loading={isSubmitting}
+            disabled={isSubmitting}
+          >
+            Subscribe
+          </button>
         </div>
       </form>
       <p style={{ fontSize: ".9rem", marginTop: ".5rem" }}>

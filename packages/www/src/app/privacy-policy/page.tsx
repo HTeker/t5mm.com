@@ -1,7 +1,7 @@
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <h1>Privacy Policy</h1>
+      <h1>Privacy policy</h1>
       <p style={{ fontSize: ".9rem", color: "#999" }}>
         Last updated: {new Date().toLocaleDateString()}
       </p>
