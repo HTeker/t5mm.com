@@ -41,7 +41,7 @@ body {
   justify-content: space-between;
   font-family: var(--font-geist-sans);
   background-color: var(--background);
-  padding: 1.5rem 1rem;
+  padding: 1.5rem;
 }
 
 .main {

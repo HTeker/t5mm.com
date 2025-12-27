@@ -3,6 +3,7 @@
 import { NewsletterEnum } from "@t5mm/shared";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
+import { useSearchParams } from "next/navigation";
 
 type FormData = {
   email: string;
@@ -11,13 +12,23 @@ type FormData = {
 
 export default function Home() {
   const { t } = useTranslation();
+  const searchParams = useSearchParams();
+
+  const newsletterParam = searchParams.get("newsletter");
+  const defaultNewsletters = newsletterParam
+    ? newsletterParam
+        .split(",")
+        .map((n) => n.trim())
+        .filter((n) => Object.values(NewsletterEnum).includes(n as NewsletterEnum))
+    : [];
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<FormData>({
     defaultValues: {
-      newsletters: [],
+      newsletters: defaultNewsletters,
       email: "",
     },
   });
