@@ -56,7 +56,7 @@ export default function Home() {
         minutes a day.
       </h1>
       <br />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%'}}>
         <p>
           <b>Newsletters:</b>
         </p>
@@ -90,13 +90,13 @@ export default function Home() {
           )}
         </div>
         <br />
-        <div style={{ display: "flex", gap: ".5rem", alignItems: "flex-start" }}>
+        <div className="form-submit-group">
           <div>
             <input
               id="email"
               type="email"
               placeholder="you@company.com"
-              style={{ flex: 1, maxWidth: "16rem" }}
+              style={{ width: '100%', minWidth: '16rem' }}
               autoFocus
               {...register("email", {
                 required: "Email is required",
