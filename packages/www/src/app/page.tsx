@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
-      <main style={{ maxWidth: '30rem' }}>
+      <main style={{ maxWidth: "30rem" }}>
         <Link href="/">
           <Image
             src="/img/t5mm-logo-dark-mode.svg"
@@ -35,12 +35,12 @@ export default function Home() {
             </label>
           ))}
         </div>
-		<br />
+        <br />
         <div>
           <input id="email" type="email" placeholder="you@company.com" />
           <button>Subscribe</button>
         </div>
-        <p>Join other professionals for one daily email!</p>
+        <p>The best news, insights and actionable tips from the web!</p>
       </main>
     </div>
   );
