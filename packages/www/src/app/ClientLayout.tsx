@@ -18,8 +18,8 @@ const InnerClientLayout: React.FC<{ children: React.ReactNode }> = ({
             <Image
               src="/img/t5mm-logo-dark-mode.svg"
               alt="T5MM Logo"
-              width={81}
-              height={24}
+              width={108}
+              height={32}
             />
           </a>
         </header>

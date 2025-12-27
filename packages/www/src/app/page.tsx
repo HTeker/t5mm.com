@@ -53,7 +53,7 @@ export default function Home() {
 
   return (
     <>
-      <div style={{ maxWidth: '30rem'}}>
+      <div style={{ maxWidth: "30rem" }}>
         {isSubmitSuccessful ? (
           <>
             <h1>
@@ -124,6 +124,7 @@ export default function Home() {
                     placeholder="you@company.com"
                     style={{ width: "100%", minWidth: "18rem" }}
                     autoFocus
+                    autoComplete="on"
                     {...register("email", {
                       required: "Email is required",
                     })}
