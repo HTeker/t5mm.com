@@ -35,8 +35,9 @@ export default function Home() {
             </label>
           ))}
         </div>
+		<br />
         <div>
-          <input type="email" placeholder="you@company.com" />
+          <input id="email" type="email" placeholder="you@company.com" />
           <button>Subscribe</button>
         </div>
         <p>Join other professionals for one daily email!</p>

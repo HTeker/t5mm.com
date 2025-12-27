@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "./ClientLayout";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const robotoCondensed = Roboto_Condensed({
+  variable: "--font-roboto-condensed",
   subsets: ["latin"],
 });
 
@@ -25,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        className={`${robotoCondensed.variable}`}
+      >
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
