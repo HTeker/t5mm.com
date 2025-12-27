@@ -1,4 +1,4 @@
 export enum NewsletterEnum {
-	Marketing = 'marketing',
-	Tech = 'tech'
+	DigitalAdvertiser = 'digital-advertiser',
+	Solopreneur = 'solopreneur',
 }

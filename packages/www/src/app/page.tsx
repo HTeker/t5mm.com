@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./page.module.css";
 
 import { NewsletterEnum } from "@t5mm/shared";
@@ -6,62 +7,34 @@ import { NewsletterEnum } from "@t5mm/shared";
 export default function Home() {
   return (
     <div className={styles.page}>
-      <main className={styles.main}>
-        <h1>T5MM</h1>
-		<h2>Keep up with the world in 5 mins a day.</h2>
-		
-        <div>
+      <main>
+        <Link href="/">
+          <Image
+            src="/img/t5mm-logo-dark-mode.svg"
+            alt="T5MM Logo"
+            width={81}
+            height={24}
+          />
+        </Link>
+        <br />
+        <br />
+        <h1>Become a better professional in 5 mins a day.</h1>
+		<br />
+        {/* <h3>Get free daily</h3> */}
+        <h3>Newsletters</h3>
+        <div style={{ display: 'flex', flexDirection: 'column'}}>
           {Object.values(NewsletterEnum).map((newsletter, index) => (
-            <p key={index}>{newsletter}</p>
+            <label key={index}>
+              <input type="checkbox" value={newsletter} />
+              {newsletter}
+            </label>
           ))}
         </div>
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+        <div>
+          <input type="email" placeholder="you@company.com" />
+          <button>Subscribe</button>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+        <p>Join other professionals for one daily email!</p>
       </main>
     </div>
   );
