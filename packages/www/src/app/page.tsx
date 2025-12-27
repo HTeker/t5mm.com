@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
-      <main>
+      <main style={{ maxWidth: '30rem' }}>
         <Link href="/">
           <Image
             src="/img/t5mm-logo-dark-mode.svg"
