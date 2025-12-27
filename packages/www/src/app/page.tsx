@@ -14,6 +14,9 @@ export default function Home() {
   const { t } = useTranslation();
   const searchParams = useSearchParams();
 
+  const capitalizeFirst = (str: string) =>
+    str.charAt(0).toUpperCase() + str.slice(1);
+
   const newsletterParam = searchParams.get("newsletter");
   const defaultNewsletters = newsletterParam
     ? newsletterParam
@@ -24,7 +27,7 @@ export default function Home() {
         )
     : [];
   const [firstDefaultNewsletter] = defaultNewsletters;
-  const role = t(firstDefaultNewsletter).toLowerCase() || "professional";
+  const role = t(firstDefaultNewsletter) || "professional";
 
   const {
     register,
@@ -104,7 +107,7 @@ export default function Home() {
                           "Please select at least one newsletter",
                       })}
                     />
-                    {t(newsletter)}
+                    {capitalizeFirst(t(newsletter))}
                   </label>
                 ))}
                 {errors.newsletters && (
