@@ -24,7 +24,7 @@ export default function Home() {
       </header>
       <main style={{ maxWidth: "30rem" }}>
         <h1>
-          Become a <span className="underlined">better professional</span> in 5
+          Become a <span className="underlined">better software engineer</span> in 5
           minutes a day.
         </h1>
         <br />
