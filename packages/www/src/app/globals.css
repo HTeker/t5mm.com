@@ -49,6 +49,7 @@ button {
 	color: #000;
 	background-color: #ffeb3b;
 	font-weight: 700;
+	padding: .75rem 1rem;
 }
 
 .marked {

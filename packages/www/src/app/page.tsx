@@ -46,7 +46,7 @@ export default function Home() {
             id="email"
             type="email"
             placeholder="you@company.com"
-            style={{ minWidth: "16rem" }}
+            style={{ flex: 1, maxWidth: '16rem' }}
             autoFocus
           />
           <button>Subscribe</button>
