@@ -1,6 +1,6 @@
 {
-  "name": "@t5mm/shared",
-  "version": "1.0.0",
+  "name": "@t5mm-com/shared",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

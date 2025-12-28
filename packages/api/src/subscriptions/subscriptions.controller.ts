@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { CreateSubscriptionsRequest } from '@t5mm/shared';
+import { CreateSubscriptionsRequest } from '@t5mm-com/shared';
 import { SubscriptionsService } from './subscriptions.service';
 import { SubscribersService } from 'src/subscribers/subscribers.service';
 

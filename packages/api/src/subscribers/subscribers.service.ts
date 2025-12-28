@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { SubscriberProps, SubscriptionProps } from '@t5mm/shared';
+import { SubscriberProps, SubscriptionProps } from '@t5mm-com/shared';
 
 @Injectable()
 export class SubscribersService {

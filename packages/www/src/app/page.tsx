@@ -1,6 +1,6 @@
 "use client";
 
-import { NewsletterEnum } from "@t5mm/shared";
+import { NewsletterEnum } from "@t5mm-com/shared";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "next/navigation";

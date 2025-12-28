@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { CreateSubscriptionsRequest, NewsletterEnum, SubscriberProps, SubscriptionProps } from '@t5mm/shared';
+import { CreateSubscriptionsRequest, NewsletterEnum, SubscriberProps, SubscriptionProps } from '@t5mm-com/shared';
 import { SubscribersService } from 'src/subscribers/subscribers.service';
 
 @Injectable()
