@@ -1,4 +1,5 @@
-- deploy www
+- searchparams
+<!-- - deploy www -->
 - implement pixel + CAPI
 - deploy api
   - POST /subscriptions (+ transactional email)

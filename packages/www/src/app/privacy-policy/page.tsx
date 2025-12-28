@@ -44,8 +44,7 @@ export default function PrivacyPolicyPage() {
       <h2>Data storage and security</h2>
       <p>
         Your data is stored securely using industry-standard encryption and
-        security measures. We retain your information only as long as you
-        maintain an active subscription to our newsletters.
+        security measures.
       </p>
 
       <h2>Your rights</h2>
