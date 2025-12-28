@@ -158,7 +158,8 @@ export default function Home() {
               </div>
             </form>
             <p style={{ fontSize: ".9rem", marginTop: ".5rem" }}>
-              The best curated news, insights and actionable tips from the web!
+              <u>1 email a day</u> with the best curated news, insights and
+              actionable tips from the web!
             </p>
           </>
         )}
