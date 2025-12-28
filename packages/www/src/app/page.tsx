@@ -18,9 +18,9 @@ export default function Home() {
   const capitalizeFirst = (str: string) =>
     str.charAt(0).toUpperCase() + str.slice(1);
 
-  const newsletterParam = searchParams.get("newsletter");
-  const defaultNewsletters = newsletterParam
-    ? newsletterParam
+  const newslettersParam = searchParams.get("newsletters");
+  const defaultNewsletters = newslettersParam
+    ? newslettersParam
         .split(",")
         .map((n) => n.trim())
         .filter((n) =>
