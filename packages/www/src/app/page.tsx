@@ -78,6 +78,7 @@ export default function Home() {
               <br />
               in 5 minutes a day.
             </h1>
+			<p>1 email. 5 minutes. Smarter decisions.</p>
             <br />
             <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
               <p>
