@@ -23,7 +23,7 @@ export class SubscriptionsService {
 	// 2. Add newsletters to subscriber
 	// }
 
-	create(subscriberUuid: SubscriberProps['uuid'], newsletter: NewsletterEnum) {
+	findOrCreate(subscriberUuid: SubscriberProps['uuid'], newsletter: NewsletterEnum) {
 		let subscription = this.subscriptions.find(s => s.subscriberUuid === subscriberUuid && s.newsletter === newsletter)
 
 		if (!subscription) {

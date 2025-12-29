@@ -1,0 +1,1 @@
+export { default as getRootDomain } from './get-root-domain'

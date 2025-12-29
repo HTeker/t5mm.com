@@ -47,6 +47,14 @@ export default function Home() {
     console.log("Newsletters:", data.newsletters);
     console.log("Full data:", data);
 
+    await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/subscriptions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
     // Wait 5 seconds
     // await new Promise((resolve) => setTimeout(resolve, 5000));
 
@@ -78,7 +86,7 @@ export default function Home() {
               <br />
               in 5 minutes a day.
             </h1>
-			<p>1 email. 5 minutes. Smarter decisions.</p>
+            <p>1 email. 5 minutes. Smarter decisions.</p>
             <br />
             <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
               <p>
