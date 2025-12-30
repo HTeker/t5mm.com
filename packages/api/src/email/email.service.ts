@@ -36,7 +36,7 @@ export class EmailService {
     }
 
     return this.zeptoClient.sendMail({
-      from: { address: 'halil@thefiveminutemail.com', name: 'T5MM' },
+      from: { address: 'newsletter@thefiveminutemail.com', name: 'T5MM' },
       to: params.to.map((to) => ({
         email_address: { address: to.email, name: to.name },
       })),

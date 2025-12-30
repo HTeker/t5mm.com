@@ -12,12 +12,12 @@ variable "api_image_tag" {
 
 variable "db_name" {
   type    = string
-  default = "verkoop24"
+  default = "t5mm"
 }
 
 variable "db_user" {
   type    = string
-  default = "verkoop24_user"
+  default = "t5mm_user"
 }
 
 variable "db_password" {
@@ -32,13 +32,13 @@ variable "db_instance_tier" {
 variable "cloudflare_email" {
   description = "Email for Cloudflare"
   type = string
-  default = "info@verkoop24.nu"
+  default = "halil@thefiveminutemail.com"
 }
 
 variable "cloudflare_account_id" {
 	description = "Account id for Cloudflare"
 	type = string
-	default = "33e49ff32ec460b6a4a22f85e6b94105"
+	default = "c465fd6d26c813ffaf46232a9d5a1be0"
 }
 
 variable "cloudflare_api_token" {
@@ -46,31 +46,31 @@ variable "cloudflare_api_token" {
   type = string
 }
 
-variable "autotelex_client_id" {
-	description = "Autotelex client ID"
-	type = string
-	default = "RegalMotors"
-}
+# variable "autotelex_client_id" {
+# 	description = "Autotelex client ID"
+# 	type = string
+# 	default = "RegalMotors"
+# }
 
-variable "autotelex_client_secret" {
-	description = "Autotelex client secret"
-	type = string
-}
+# variable "autotelex_client_secret" {
+# 	description = "Autotelex client secret"
+# 	type = string
+# }
 
-variable "autotelex_api_key" {
-	description = "Autotelex API key"
-	type = string
-}
+# variable "autotelex_api_key" {
+# 	description = "Autotelex API key"
+# 	type = string
+# }
 
 variable "zepto_api_key" {
 	description = "Zepto API key"
 	type = string
 }
 
-variable "meta_pixel_id" {
-	description = "Meta pixel ID"
-	type = string
-}
+# variable "meta_pixel_id" {
+# 	description = "Meta pixel ID"
+# 	type = string
+# }
 
 variable "meta_capi_access_token" {
 	description = "Meta CAPI access token"
@@ -81,26 +81,26 @@ locals {
 	env = terraform.workspace
 
 	hosts = {
-		qa = "qa.verkoop24.nu"
-		production = "verkoop24.nu"
+		# qa = "qa.verkoop24.nu"
+		production = "thefiveminutemail.com"
 	}
 
 	env_vars_map = {
-		qa = {
-			common = {
-				ENV = "qa"
-				# META_PIXEL_ID = "772377015663230"
-			}
-			api = {
-				# GDRIVE_FUNNELS_DIRECTORY_ID = "1i5_CGOd6_GyS6K9JmAj2rou4u92wh3uw"
-			}
-		}
+		# qa = {
+		# 	common = {
+		# 		ENV = "qa"
+		# 		# META_PIXEL_ID = "772377015663230"
+		# 	}
+		# 	api = {
+		# 		# GDRIVE_FUNNELS_DIRECTORY_ID = "1i5_CGOd6_GyS6K9JmAj2rou4u92wh3uw"
+		# 	}
+		# }
 		production = {
 			common = {
 				ENV = "production"
-				META_PIXEL_ID = "1844245412970621"
-				WEBSITE_HOST = "https://verkoop24.nu"
-				API_HOST = "https://api.verkoop24.nu"
+				META_PIXEL_ID = "918618570654690"
+				WWW_HOST = "https://thefiveminutemail.com"
+				API_HOST = "https://api.thefiveminutemail.com"
 			}
 			api = {
 				# GDRIVE_FUNNELS_DIRECTORY_ID = "1LD3HZTnIjl8AsyLwcnDuqQVIqnFs6AQo"
@@ -110,7 +110,7 @@ locals {
 
 	env_vars = lookup(local.env_vars_map, local.env, {})
 
-	zone_id = "18a173c015ade66af7c34692e66dc9c7"
+	zone_id = "0c6248f15fa2de652ad1fc23d04cff65"
 
 	is_prod = local.env == "production"
 	is_prod_like = local.env == "production" || local.env == "qa"
@@ -121,8 +121,8 @@ locals {
 	www_host = "www.${local.host}"
 	www_host_key = "www-${local.host_key}"
 
-	app_host = "app.${local.host}"
-	app_host_key = "app-${local.host_key}"
+	# app_host = "app.${local.host}"
+	# app_host_key = "app-${local.host_key}"
 
 	api_host = "api.${local.host}"
 	api_host_key = "api-${local.host_key}"

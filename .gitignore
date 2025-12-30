@@ -35,3 +35,6 @@ coverage
 
 # Debug
 *.pem
+
+*.service-account.json
+.terraform
