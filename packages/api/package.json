@@ -38,7 +38,8 @@
     "typeorm": "^0.3.26",
     "dotenv": "^16.4.7",
     "class-transformer": "^0.5.1",
-    "pg": "^8.16.3"
+    "pg": "^8.16.3",
+    "zeptomail": "^6.2.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

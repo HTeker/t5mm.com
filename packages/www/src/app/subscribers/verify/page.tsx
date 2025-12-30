@@ -11,8 +11,6 @@ export default function VerifySubscriberPage() {
 
   const tokenParam = searchParams.get("token");
 
-  console.log("searchParams", searchParams);
-
   useEffect(() => {
     (async () => {
       try {
@@ -33,7 +31,7 @@ export default function VerifySubscriberPage() {
 
   return (
     <>
-      <h1>Verify subscription</h1>
+      <h1>Confirm subscription</h1>
       {isLoading ? <p>Loading...</p> : <p>Done! You&apos;re good to go!</p>}
     </>
   );

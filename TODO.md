@@ -3,7 +3,7 @@
   <!-- - db layer -->
   <!-- - POST /subscriptions -->
   <!-- - POST /subscribers/:uuid/verify -->
-  - transactional emails
+  <!-- - transactional emails -->
 - implement pixel + CAPI
 - host on GCP
 - create FB & Insta + run ads
