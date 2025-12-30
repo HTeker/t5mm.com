@@ -1,21 +1,20 @@
-
-import { Entity, Column, Index } from 'typeorm';
+import { Entity, Column, Index, OneToMany } from 'typeorm';
 import { BaseEntity } from '../common/base.entity';
-// import { Exclude, Expose } from 'class-transformer';
 import { SubscriberProps } from '@t5mm-com/shared';
+import { SubscriptionsEntity } from 'src/subscriptions/subscriptions.entity';
 
-@Entity('subscribers', {
-	orderBy: {
-		name: 'ASC'
-	}
-})
+@Entity('subscribers')
 export class SubscribersEntity extends BaseEntity implements SubscriberProps {
+  @Index()
+  @Column({ unique: true })
+  email: string;
 
-	@Index()
-	@Column({ unique: true })
-	email: string;
+  @Column({ type: 'timestamptz', nullable: true })
+  verifiedAt?: Date;
 
-	@Column({ type: 'timestamptz', nullable: true })
-	verifiedAt?: Date;
-
+  @OneToMany(
+    () => SubscriptionsEntity,
+    (subscription) => subscription.subscriber,
+  )
+  subscriptions?: SubscriptionsEntity[];
 }

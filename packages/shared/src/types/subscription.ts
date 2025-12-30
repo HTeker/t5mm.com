@@ -2,8 +2,9 @@ import { BaseEntityProps } from "./base"
 import { NewsletterEnum } from "./newsletter"
 
 export interface SubscriptionProps extends BaseEntityProps {
-	subscriberUuid: string
-	newsletter: NewsletterEnum
+  subscriberUuid: string;
+  subscriberEmail: string;
+  newsletter: NewsletterEnum;
 }
 
 export interface CreateSubscriptionsRequest {

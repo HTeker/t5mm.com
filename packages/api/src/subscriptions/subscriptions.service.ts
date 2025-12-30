@@ -1,40 +1,57 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { CreateSubscriptionsRequest, NewsletterEnum, SubscriberProps, SubscriptionProps } from '@t5mm-com/shared';
+import { SubscriptionProps } from '@t5mm-com/shared';
 import { SubscribersService } from 'src/subscribers/subscribers.service';
+import { SubscriptionsEntity } from './subscriptions.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class SubscriptionsService {
+  private readonly logger = new Logger(SubscriptionsService.name);
 
-	private readonly logger = new Logger(SubscriptionsService.name)
+  subscriptions: SubscriptionProps[] = [];
 
-	subscriptions: SubscriptionProps[] = []
+  constructor(
+    @InjectRepository(SubscriptionsEntity)
+    private subscriptionsRepository: Repository<SubscriptionsEntity>,
+    private readonly subscribersService: SubscribersService,
+  ) {}
 
-	// constructor(
-	// 	@InjectRepository(UsersEntity)
-	// 	private usersRepository: Repository<UsersEntity>,
-	// ) { }
+  async findOne(
+    subscription: Pick<SubscriptionProps, 'subscriberEmail' | 'newsletter'>,
+  ): Promise<SubscriptionsEntity | null> {
+    return this.subscriptionsRepository.findOne({
+      where: {
+        subscriber: { email: subscription.subscriberEmail },
+        newsletter: subscription.newsletter,
+      },
+    });
+  }
 
-	// constructor(private readonly subscribersService: SubscribersService) { }
+  async create(
+    subscription: Pick<SubscriptionProps, 'subscriberEmail' | 'newsletter'>,
+  ): Promise<SubscriptionsEntity> {
+    this.logger.log(`Creating subscription: ${JSON.stringify(subscription)}`);
 
-	// async subscribe(body: CreateSubscriptionsRequest) {
+    const subscriber = await this.subscribersService.findOneOrCreate(
+      subscription.subscriberEmail,
+    );
 
-	// 1. Create subscriber if it does not exist + send verification link
+    return this.subscriptionsRepository.save({
+      subscriber: { uuid: subscriber.uuid },
+      newsletter: subscription.newsletter,
+    });
+  }
 
-	// 2. Add newsletters to subscriber
-	// }
+  async findOneOrCreate(
+    subscription: Pick<SubscriptionProps, 'subscriberEmail' | 'newsletter'>,
+  ): Promise<SubscriptionsEntity> {
+    let _subscription = await this.findOne(subscription);
 
-	findOrCreate(subscriberUuid: SubscriberProps['uuid'], newsletter: NewsletterEnum) {
-		let subscription = this.subscriptions.find(s => s.subscriberUuid === subscriberUuid && s.newsletter === newsletter)
+    if (!_subscription) {
+      _subscription = await this.create(subscription);
+    }
 
-		if (!subscription) {
-			const uuid = Math.random().toString(36).substring(2) + Date.now().toString(36);
-
-			subscription = { uuid, createdAt: new Date(), updatedAt: new Date(), subscriberUuid, newsletter }
-			this.subscriptions.push(subscription)
-			// TODO: send verification email
-		}
-
-		return subscription
-	}
-
+    return _subscription;
+  }
 }

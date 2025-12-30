@@ -6,44 +6,33 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class SubscribersService {
+  private readonly logger = new Logger(SubscribersService.name);
 
-	private readonly logger = new Logger(SubscribersService.name)
+  constructor(
+    @InjectRepository(SubscribersEntity)
+    private subscribersRepository: Repository<SubscribersEntity>,
+  ) {}
 
-	constructor(
-		@InjectRepository(SubscribersEntity)
-		private subscribersRepository: Repository<SubscribersEntity>,
-	) { }
+  async create(
+    subscriber: OmitBase<SubscriberProps>,
+  ): Promise<SubscribersEntity> {
+    this.logger.log(`Creating subscriber: ${subscriber}`);
+    return this.subscribersRepository.save(subscriber);
+  }
 
-	subscribers: SubscriberProps[] = []
+  findOneByEmail(
+    email: SubscriberProps['email'],
+  ): Promise<SubscriberProps | null> {
+    return this.subscribersRepository.findOneBy({ email });
+  }
 
-	create(subscriber: OmitBase<SubscriberProps>): SubscriberProps {
-		this.logger.log(`Creating subscriber: ${subscriber}`)
-		return this.subscribersRepository.save(subscriber)
-		// let subscriber = this.find(email)
+  async findOneOrCreate(email: string): Promise<SubscriberProps> {
+    let subscriber = await this.findOneByEmail(email);
 
-		// if (!subscriber) {
-		// 	const uuid = Math.random().toString(36).substring(2) + Date.now().toString(36);
+    if (!subscriber) {
+      subscriber = await this.create({ email });
+    }
 
-		// 	subscriber = { uuid, createdAt: new Date(), updatedAt: new Date(), email }
-		// 	this.subscribers.push(subscriber)
-		// 	// TODO: send verification email
-		// }
-
-		// return subscriber
-	}
-
-	find(email): SubscriberProps | undefined {
-		return this.subscribers.find(s => s.email === email)
-	}
-
-	async findOrCreate(email: string): Promise<SubscriberProps> {
-		let subscriber = this.find(email)
-
-		if (!subscriber) {
-			subscriber = await this.create({ email })
-		}
-
-		return subscriber
-	}
-
+    return subscriber;
+  }
 }

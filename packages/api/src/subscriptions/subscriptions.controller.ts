@@ -10,17 +10,18 @@ import { SubscribersService } from 'src/subscribers/subscribers.service';
 
 @Controller('subscriptions')
 export class SubscriptionsController {
+  constructor(
+    private readonly subscribersService: SubscribersService,
+    private readonly subscriptionsService: SubscriptionsService,
+  ) {}
 
-	constructor(private readonly subscribersService: SubscribersService, private readonly subscriptionsService: SubscriptionsService) { }
-
-	@Post()
-	async subscribe(@Body() body: CreateSubscriptionsRequest) {
-		const subscriber = await this.subscribersService.findOrCreate(body.email)
-		// console.log('body', body)
-		// return body
-
-		for (const newsletter of body.newsletters) {
-			await this.subscriptionsService.findOrCreate(subscriber.uuid, newsletter)
-		}
-	}
+  @Post()
+  async subscribe(@Body() body: CreateSubscriptionsRequest) {
+    for (const newsletter of body.newsletters) {
+      await this.subscriptionsService.findOneOrCreate({
+        subscriberEmail: body.email,
+        newsletter,
+      });
+    }
+  }
 }
