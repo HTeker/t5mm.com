@@ -1,12 +1,12 @@
 <!-- - deploy www -->
-- deploy api
+<!-- - deploy api -->
   <!-- - db layer -->
   <!-- - POST /subscriptions -->
   <!-- - POST /subscribers/:uuid/verify -->
   <!-- - transactional emails -->
 <!-- - implement pixel + CAPI -->
-- host on GCP
-- create FB & Insta + run ads
+<!-- - host on GCP -->
+<!-- - create FB & Insta + run ads -->
 
 Quick follow-up:
 - redirect alternative domains to primary
