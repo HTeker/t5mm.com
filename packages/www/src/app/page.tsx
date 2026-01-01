@@ -50,7 +50,7 @@ export default function HomePage() {
   } = useForm<FormData>({
     defaultValues: {
       newsletters: defaultNewsletters,
-      email: "h.teker@live.nl",
+      email: "",
     },
   });
 
