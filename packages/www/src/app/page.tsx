@@ -45,13 +45,16 @@ export default function HomePage() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<FormData>({
     defaultValues: {
       newsletters: defaultNewsletters,
-      email: "",
+      email: "h.teker@live.nl",
     },
   });
+
+  const formValues = watch();
 
   const onSubmit = async (data: FormData) => {
     track(TrackingEventEnum.Lead);
@@ -64,6 +67,36 @@ export default function HomePage() {
       },
       body: JSON.stringify(data),
     });
+  };
+
+  const [verificationResendAt, setVerificationResendAt] = useState<Date>();
+  const [resendCooldown, setResendCooldown] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!verificationResendAt) return;
+
+      const elapsed = Math.floor(
+        (Date.now() - verificationResendAt.getTime()) / 1000
+      );
+      const remaining = Math.max(0, 30 - elapsed);
+      setResendCooldown(remaining);
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [verificationResendAt]);
+
+  const resendVerificationEmail = async () => {
+    setVerificationResendAt(new Date());
+    await fetch(
+      `${process.env.NEXT_PUBLIC_API_HOST}/subscribers/${formValues.email}/send-verification`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
   };
 
   return (
@@ -79,8 +112,15 @@ export default function HomePage() {
               <li>Find our email (can take up to 30 seconds)</li>
               <li>Click the confirmation link in the email</li>
             </ol>
-            <p>Didn't receive the email?</p>
-            <a href="">Resend</a>
+            <p>Didn&apos;t receive the email?</p>
+            <button
+              data-variant="text"
+              onClick={resendVerificationEmail}
+              disabled={resendCooldown > 0}
+              style={{ padding: 0 }}
+            >
+              {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : "Resend"}
+            </button>
           </>
         ) : (
           <>

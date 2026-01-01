@@ -136,6 +136,38 @@ button[data-loading="true"]::after {
   }
 }
 
+/* Button variants */
+button[data-variant="text"] {
+  background-color: transparent;
+  color: #ffeb3b;
+  padding: 0.75rem 0.5rem;
+}
+
+/* button[data-variant="text"]:hover {
+  background-color: rgba(255, 235, 59, 0.1);
+} */
+
+button[data-variant="text"]:disabled {
+  background-color: transparent;
+  color: #666;
+}
+
+button[data-variant="outlined"] {
+  background-color: transparent;
+  color: #ffeb3b;
+  border: 2px solid #ffeb3b;
+}
+
+button[data-variant="outlined"]:hover {
+  background-color: rgba(255, 235, 59, 0.1);
+}
+
+button[data-variant="outlined"]:disabled {
+  background-color: transparent;
+  color: #666;
+  border-color: #666;
+}
+
 .marked {
   background-color: #ffeb3b;
   color: #000;

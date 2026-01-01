@@ -2,9 +2,25 @@ import { Body, Controller, Param, Post } from '@nestjs/common';
 import { SubscriberProps } from '@t5mm-com/shared';
 import { SubscribersService } from 'src/subscribers/subscribers.service';
 
+import * as fs from 'fs';
+import * as path from 'path';
+import { ConfigService } from '@nestjs/config';
+import { EmailService } from 'src/email/email.service';
+
+const templatePath = path.join(
+  __dirname,
+  '../assets/email-templates/confirm-signup.html',
+);
+
+const emailTemplate = fs.readFileSync(templatePath, 'utf-8');
+
 @Controller('subscribers')
 export class SubscribersController {
-  constructor(private readonly subscribersService: SubscribersService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly subscribersService: SubscribersService,
+    private readonly emailService: EmailService,
+  ) {}
 
   @Post('/:uuid/verify')
   async verify(@Param('uuid') uuid: SubscriberProps['uuid']) {
@@ -15,5 +31,28 @@ export class SubscribersController {
     return this.subscribersService.updateOne(uuid, {
       verifiedAt: new Date(),
     });
+  }
+
+  @Post('/:email/send-verification')
+  async sendVerificationEmail(@Param('email') email: SubscriberProps['email']) {
+    const subscriber = await this.subscribersService.findOne(email);
+
+    if (!subscriber) return;
+
+    const wwwHost = this.configService.get<string>('WWW_HOST');
+    const confirmSignupLink = `${wwwHost}/subscribers/verify?token=${subscriber.uuid}`;
+
+    const htmlBody = emailTemplate.replace(
+      /{{confirmSignupLink}}/g,
+      confirmSignupLink,
+    );
+
+    await this.emailService.send({
+      to: [{ email: subscriber.email, name: '' }],
+      subject: 'Confirm your T5MM subscription (5 seconds)',
+      htmlBody,
+    });
+
+    /// TODO send verification email
   }
 }
