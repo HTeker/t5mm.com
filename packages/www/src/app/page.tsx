@@ -39,8 +39,8 @@ export default function HomePage() {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setRole(firstDefaultNewsletter || "professional");
-  }, [firstDefaultNewsletter]);
+    setRole(t(firstDefaultNewsletter) || "professional");
+  }, [t, firstDefaultNewsletter]);
 
   const {
     register,
@@ -55,6 +55,7 @@ export default function HomePage() {
 
   const onSubmit = async (data: FormData) => {
     track(TrackingEventEnum.Lead);
+    track(TrackingEventEnum.Subscribe);
 
     await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/subscriptions`, {
       method: "POST",
