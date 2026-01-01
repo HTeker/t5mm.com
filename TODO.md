@@ -1,7 +1,7 @@
 # Phase 0: acquire subscribers sustainably
 
 Problems to solve:
-- conversions are not being tracked -> double-check pixel + CAPI
+<!-- - conversions are not being tracked -> double-check pixel + CAPI -->
 - most signups do not confirm signup using email link
   - confirm reminder up to 7 days (with unsubscribe/manage subscriptions button)
 - Google Core Web vitals

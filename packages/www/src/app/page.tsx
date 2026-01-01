@@ -4,18 +4,21 @@ import { NewsletterEnum } from "@t5mm-com/shared";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { TrackingEventEnum, useTracking } from "@t5mm-com/tracking";
-import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { useEffect, useState } from "react";
 
 type FormData = {
   email: string;
   newsletters: string[];
 };
 
-function HomePageContent() {
+export default function HomePage() {
   const { track } = useTracking();
   const { t } = useTranslation();
-  const searchParams = useSearchParams();
+
+  const searchParams =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search)
+      : new URLSearchParams();
 
   const capitalizeFirst = (str: string) =>
     str.charAt(0).toUpperCase() + str.slice(1);
@@ -29,8 +32,15 @@ function HomePageContent() {
           Object.values(NewsletterEnum).includes(n as NewsletterEnum)
         )
     : [];
+
   const [firstDefaultNewsletter] = defaultNewsletters;
-  const role = t(firstDefaultNewsletter) || "professional";
+
+  const [role, setRole] = useState("");
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setRole(firstDefaultNewsletter || "professional");
+  }, [firstDefaultNewsletter]);
 
   const {
     register,
@@ -72,7 +82,9 @@ function HomePageContent() {
           <>
             <h1>
               Become a<br />
-              <span className="underlined">better {role}</span>
+              <span className="underlined">
+                better <span suppressHydrationWarning>{role}</span>
+              </span>
               <br />
               in 5 minutes a day.
             </h1>
@@ -168,10 +180,10 @@ function HomePageContent() {
   );
 }
 
-export default function HomePage() {
-  return (
-    <Suspense fallback={<div style={{ maxWidth: "30rem" }}>Loading...</div>}>
-      <HomePageContent />
-    </Suspense>
-  );
-}
+// export default function HomePage() {
+//   return (
+//     <Suspense fallback={<div style={{ maxWidth: "30rem" }}>Loading...</div>}>
+//       <HomePageContent />
+//     </Suspense>
+//   );
+// }
