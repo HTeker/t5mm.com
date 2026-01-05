@@ -12,7 +12,7 @@ const useSubscriptions = (params?: unknown) => {
 
   const isFetching = !data && !error;
 
-  return { subscriptions: data ?? [], isFetching };
+  return { subscriptions: data ?? [], isFetching, error };
 };
 
 export default useSubscriptions;

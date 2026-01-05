@@ -10,3 +10,8 @@ export interface CreateSubscriptionsRequest {
   email: string;
   newsletters: NewsletterEnum[];
 }
+
+export interface UpdateSubscriptionsRequest {
+  subscriberUuid: string;
+  newsletters: NewsletterEnum[];
+}

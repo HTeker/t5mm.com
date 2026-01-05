@@ -41,11 +41,11 @@ export class SubscribersController {
 
     const wwwHost = this.configService.get<string>('WWW_HOST');
     const confirmSignupLink = `${wwwHost}/subscribers/verify?token=${subscriber.uuid}`;
+    const manageSubscriptionsLink = `${wwwHost}/manage-subscriptions?token=${subscriber.uuid}`;
 
-    const htmlBody = emailTemplate.replace(
-      /{{confirmSignupLink}}/g,
-      confirmSignupLink,
-    );
+    const htmlBody = emailTemplate
+      .replace(/{{confirmSignupLink}}/g, confirmSignupLink)
+      .replace(/{{manageSubscriptionsLink}}/g, manageSubscriptionsLink);
 
     await this.emailService.send({
       to: [{ email: subscriber.email, name: '' }],

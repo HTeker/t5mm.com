@@ -73,4 +73,13 @@ export class SubscriptionsService {
 
     return _subscription;
   }
+
+  async delete(
+    subscription: Pick<SubscriptionProps, 'subscriberUuid' | 'newsletter'>,
+  ) {
+    return this.subscriptionsRepository.softDelete({
+      subscriber: { uuid: subscription.subscriberUuid },
+      newsletter: subscription.newsletter,
+    });
+  }
 }

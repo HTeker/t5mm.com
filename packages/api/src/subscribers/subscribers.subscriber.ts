@@ -24,11 +24,11 @@ export class SubscribersSubscriber implements EntitySubscriberInterface<Subscrib
   async afterInsert(event: InsertEvent<SubscribersEntity>) {
     const wwwHost = process.env.WWW_HOST;
     const confirmSignupLink = `${wwwHost}/subscribers/verify?token=${event.entity.uuid}`;
+    const manageSubscriptionsLink = `${wwwHost}/manage-subscriptions?token=${event.entity.uuid}`;
 
-    const htmlBody = emailTemplate.replace(
-      /{{confirmSignupLink}}/g,
-      confirmSignupLink,
-    );
+    const htmlBody = emailTemplate
+      .replace(/{{confirmSignupLink}}/g, confirmSignupLink)
+      .replace(/{{manageSubscriptionsLink}}/g, manageSubscriptionsLink);
 
     await this.emailService.send({
       to: [{ email: event.entity.email, name: '' }],

@@ -13,8 +13,6 @@ type FormData = {
   newsletters: NewsletterEnum[];
 };
 
-const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
 export default function ManageSubscriptionsPage() {
   const { t } = useTranslation();
 
@@ -30,9 +28,8 @@ export default function ManageSubscriptionsPage() {
   const {
     register,
     handleSubmit,
-    watch,
     reset,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
   } = useForm<FormData>();
 
   useEffect(() => {
@@ -43,21 +40,26 @@ export default function ManageSubscriptionsPage() {
   }, [subscriptions.subscriptions, reset]);
 
   const onSubmit = async (data: FormData) => {
-    await delay(5000);
-    console.log("data", data);
-    // await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/subscriptions`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // });
+    await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/subscriptions`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        subscriberUuid: tokenParam,
+        ...data,
+      }),
+    });
   };
 
   return (
     <>
       <h1>Manage your subscriptions</h1>
-      {subscriptions.subscriptions.length ? (
+      {subscriptions.isFetching ? (
+        <p>Loading...</p>
+      ) : subscriptions.error ? (
+        <p>Something went wrong</p>
+      ) : (
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <p>
             <b>Newsletters:</b>
@@ -100,30 +102,6 @@ export default function ManageSubscriptionsPage() {
           </div>
           <br />
           <div className="form-submit-group">
-            {/* <div>
-            <input
-              id="email"
-              type="email"
-              placeholder="you@company.com"
-              style={{ width: "100%", minWidth: "18rem" }}
-              autoFocus
-              autoComplete="on"
-              {...register("email", {
-                required: "Email is required",
-              })}
-            />
-            {errors.email && (
-              <p
-                style={{
-                  color: "#ff4444",
-                  fontSize: ".9rem",
-                  margin: ".25rem 0 0 0",
-                }}
-              >
-                {errors.email.message}
-              </p>
-            )}
-          </div> */}
             <button
               type="submit"
               data-loading={isSubmitting}
@@ -133,8 +111,6 @@ export default function ManageSubscriptionsPage() {
             </button>
           </div>
         </form>
-      ) : (
-        <p>Loading...</p>
       )}
     </>
   );

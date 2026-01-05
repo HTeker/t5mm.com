@@ -1,7 +1,11 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { CreateSubscriptionsRequest } from '@t5mm-com/shared';
+import { Body, Controller, Get, Post, Put, Query } from '@nestjs/common';
+import {
+  CreateSubscriptionsRequest,
+  UpdateSubscriptionsRequest,
+} from '@t5mm-com/shared';
 import { SubscriptionsService } from './subscriptions.service';
 import { SubscribersService } from 'src/subscribers/subscribers.service';
+import { NewsletterEnum } from '@t5mm-com/shared';
 
 @Controller('subscriptions')
 export class SubscriptionsController {
@@ -14,6 +18,32 @@ export class SubscriptionsController {
   async getSubscriptions(@Query('subscriberUuid') subscriberUuid: string) {
     if (!subscriberUuid) return;
     return this.subscriptionsService.findBySubscriberUuid(subscriberUuid);
+  }
+
+  @Put()
+  async updateSubscriptions(
+    // @Query('subscriberUuid') subscriberUuid: string,
+    @Body() body: UpdateSubscriptionsRequest,
+  ) {
+    const missingNewsletters = Object.values(NewsletterEnum).filter(
+      (n) => !body.newsletters.includes(n),
+    );
+
+    for (const newsletter of missingNewsletters) {
+      await this.subscriptionsService.delete({
+        subscriberUuid: body.subscriberUuid,
+        newsletter,
+      });
+    }
+
+    console.log(missingNewsletters);
+
+    for (const newsletter of body.newsletters) {
+      await this.subscriptionsService.findOneOrCreate({
+        subscriberUuid: body.subscriberUuid,
+        newsletter,
+      });
+    }
   }
 
   @Post()

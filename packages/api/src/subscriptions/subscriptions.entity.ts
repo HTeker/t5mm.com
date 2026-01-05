@@ -11,7 +11,10 @@ import { NewsletterEnum, SubscriptionProps } from '@t5mm-com/shared';
 import { SubscribersEntity } from 'src/subscribers/subscribers.entity';
 
 @Entity('subscriptions')
-@Index(['subscriber', 'newsletter'], { unique: true })
+@Index(['subscriber', 'newsletter'], {
+  unique: true,
+  where: `"deletedAt" IS NULL`,
+})
 export class SubscriptionsEntity
   extends BaseEntity
   implements SubscriptionProps
