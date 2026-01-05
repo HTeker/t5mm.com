@@ -23,12 +23,15 @@
   "description": "",
   "sideEffects": false,
   "dependencies": {
+    "qs": "^6.14.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "swr": "^2.3.8",
     "type-fest": "^4.41.0"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",
+    "@types/qs": "^6.14.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "esbuild-sass-plugin": "^3.3.1",
@@ -49,6 +52,11 @@
       "types": "./dist/types/index.d.ts",
       "import": "./dist/types/index.mjs",
       "require": "./dist/types/index.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.mjs",
+      "require": "./dist/hooks/index.js"
     },
     "./components": {
       "import": "./dist/components/index.mjs",

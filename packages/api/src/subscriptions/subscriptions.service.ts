@@ -18,24 +18,43 @@ export class SubscriptionsService {
   ) {}
 
   async findOne(
-    subscription: Pick<SubscriptionProps, 'subscriberEmail' | 'newsletter'>,
+    subscription: Pick<SubscriptionProps, 'subscriberUuid' | 'newsletter'>,
   ): Promise<SubscriptionsEntity | null> {
     return this.subscriptionsRepository.findOne({
       where: {
-        subscriber: { email: subscription.subscriberEmail },
+        subscriber: { uuid: subscription.subscriberUuid },
         newsletter: subscription.newsletter,
       },
     });
   }
 
+  async findBySubscriberUuid(
+    subscriberUuid: string,
+  ): Promise<SubscriptionsEntity[]> {
+    return this.subscriptionsRepository.find({
+      where: {
+        subscriber: {
+          uuid: subscriberUuid,
+        },
+      },
+      loadEagerRelations: false,
+    });
+  }
+
   async create(
-    subscription: Pick<SubscriptionProps, 'subscriberEmail' | 'newsletter'>,
+    subscription: Pick<SubscriptionProps, 'subscriberUuid' | 'newsletter'>,
   ): Promise<SubscriptionsEntity> {
     this.logger.log(`Creating subscription: ${JSON.stringify(subscription)}`);
 
-    const subscriber = await this.subscribersService.findOneOrCreate(
-      subscription.subscriberEmail,
+    const subscriber = await this.subscribersService.findOne(
+      subscription.subscriberUuid,
     );
+
+    if (!subscriber) {
+      throw new Error(
+        `There is not subscriber with uuid: ${subscription.subscriberUuid}`,
+      );
+    }
 
     return this.subscriptionsRepository.save({
       subscriber: { uuid: subscriber.uuid },
@@ -44,7 +63,7 @@ export class SubscriptionsService {
   }
 
   async findOneOrCreate(
-    subscription: Pick<SubscriptionProps, 'subscriberEmail' | 'newsletter'>,
+    subscription: Pick<SubscriptionProps, 'subscriberUuid' | 'newsletter'>,
   ): Promise<SubscriptionsEntity> {
     let _subscription = await this.findOne(subscription);
 

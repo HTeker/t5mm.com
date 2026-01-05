@@ -19,8 +19,6 @@ export class SubscriptionsEntity
   @RelationId((subscription: SubscriptionsEntity) => subscription.subscriber)
   subscriberUuid: string;
 
-  subscriberEmail: string;
-
   @Column({ type: 'enum', enum: NewsletterEnum })
   newsletter: NewsletterEnum;
 
@@ -38,6 +36,5 @@ export class SubscriptionsEntity
   @AfterLoad()
   loadComputedFields() {
     if (!this.subscriber) return;
-    this.subscriberEmail = this.subscriber.email;
   }
 }

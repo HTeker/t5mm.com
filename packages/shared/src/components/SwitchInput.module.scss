@@ -1,3 +1,42 @@
 .switch {
-  background-color: red;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 8px 0;
+
+  input[type="checkbox"] {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    appearance: none;
+    background-color: #ccc;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: white;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.2s;
+    }
+
+    &:checked {
+      background-color: #4caf50;
+
+      &::before {
+        transform: translateX(20px);
+      }
+    }
+  }
+
+  span {
+    user-select: none;
+  }
 }
