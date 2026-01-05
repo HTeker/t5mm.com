@@ -6,12 +6,17 @@ import Link from "next/link";
 
 import i18n from "./i18n";
 import { TrackingPlatformEnum, TrackingProvider } from "@t5mm-com/tracking";
+import Script from "next/script";
 
 const InnerClientLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
     <I18nextProvider i18n={i18n}>
+      <Script
+        src="https://t.contentsquare.net/uxa/a51d95bb9bf19.js"
+        strategy="afterInteractive"
+      />
       <div className="page">
         <header>
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
